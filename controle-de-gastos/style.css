@@ -1,0 +1,92 @@
+:root {
+  --fundo: #F2F4F1;
+  --papel: #FFFFFF;
+  --tinta: #14231C;
+  --suave: #66746C;
+  --linha: #D3DAD5;
+  --verde: #1F6B4A;
+  --verm: #B8402F;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 16px/1.5 "Instrument Sans", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.pagina { max-width: 880px; margin: 0 auto; padding: 40px 20px 64px; }
+
+header {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  align-items: end; justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--tinta);
+}
+h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+h2 { margin: 36px 0 12px; font-size: 1.05rem; }
+
+input, select, button { font: inherit; }
+input, select {
+  min-width: 0; padding: 9px 10px;
+  color: inherit; background: var(--papel);
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+.mes { display: flex; align-items: center; gap: 8px; color: var(--suave); }
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* resumo: o saldo é o destaque da página */
+.resumo { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--linha); }
+.resumo > div { padding: 20px 0; }
+.resumo > div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
+.resumo small { display: block; color: var(--suave); }
+.resumo strong { font-size: 1.4rem; font-weight: 600; }
+.saldo strong { font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; }
+.pos { color: var(--verde); }
+.neg { color: var(--verm); }
+
+/* formulário */
+.form { display: flex; flex-wrap: wrap; gap: 8px; }
+#descricao { flex: 1 1 200px; }
+#valor { width: 130px; }
+.form button {
+  padding: 9px 18px; font-weight: 600; cursor: pointer;
+  color: #fff; background: var(--verde);
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+#erro { min-height: 1.5em; margin: 8px 0 0; color: var(--verm); }
+
+/* gráfico */
+.barra { display: grid; grid-template-columns: 120px 1fr 110px; gap: 12px; align-items: center; padding: 4px 0; }
+.trilho { height: 10px; background: var(--linha); border-radius: 2px; }
+.trilho i { display: block; height: 100%; background: var(--verm); border-radius: 2px; }
+.barra span:last-child { text-align: right; }
+
+/* tabela */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-weight: 600; color: var(--suave); border-bottom: 1px solid var(--tinta); padding: 6px 8px 6px 0; }
+td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--linha); }
+.valor { text-align: right; }
+td.receita { color: var(--verde); }
+td.despesa { color: var(--verm); }
+td button { background: none; border: 0; padding: 4px 8px; color: var(--suave); cursor: pointer; border-radius: 3px; }
+td button:hover { color: var(--verm); background: var(--papel); }
+
+#vazio, .vazio { color: var(--suave); }
+.secundario {
+  margin-top: 24px; padding: 9px 16px; cursor: pointer;
+  color: var(--tinta); background: none;
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+.secundario:disabled { opacity: .4; cursor: not-allowed; }
+
+@media (max-width: 600px) {
+  .resumo { grid-template-columns: 1fr; }
+  .resumo > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--linha); }
+  .barra { grid-template-columns: 90px 1fr 90px; }
+  th:nth-child(3), td:nth-child(3) { display: none; }
+}

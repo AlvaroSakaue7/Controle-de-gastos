@@ -1,0 +1,9 @@
+{
+  "name": "controle-de-gastos",
+  "version": "1.0.0",
+  "description": "Controle de gastos pessoais com HTML, CSS e JavaScript puro.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
