@@ -1,0 +1,149 @@
+:root {
+  --fundo: #F2F4F1;
+  --papel: #FFFFFF;
+  --tinta: #14231C;
+  --suave: #66746C;
+  --linha: #D3DAD5;
+  --verde: #1F6B4A;
+  --verm: #B8402F;
+  --sobre: #FFFFFF;
+  --c0: #3B6EA5; --c1: #D98E2B; --c2: #7A5BB0; --c3: #D0577A; --c4: #2E9C8F; --c5: #6B8F3E; --c6: #8B949E;
+}
+
+:root[data-tema="escuro"] {
+  color-scheme: dark;
+  --fundo: #0F1814;
+  --papel: #17231D;
+  --tinta: #E6EEE9;
+  --suave: #8FA298;
+  --linha: #2B3B33;
+  --verde: #5CC596;
+  --verm: #E7806F;
+  --sobre: #0F1814;
+  --c0: #6FA0D8; --c1: #F0AE55; --c2: #A98BE0; --c3: #EE86A3; --c4: #55C9BA; --c5: #9CC56A; --c6: #A8B1BA;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 16px/1.5 "Instrument Sans", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.pagina { max-width: 960px; margin: 0 auto; padding: 40px 20px 64px; }
+
+header {
+  display: flex; flex-wrap: wrap; gap: 16px;
+  align-items: end; justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--tinta);
+}
+h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.01em; }
+h2 { margin: 36px 0 12px; font-size: 1.05rem; }
+
+input, select, button { font: inherit; }
+.topo { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.topo .secundario { margin-top: 0; }
+input, select {
+  min-width: 0; padding: 9px 10px;
+  color: inherit; background: var(--papel);
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+.mes { display: flex; align-items: center; gap: 8px; color: var(--suave); }
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* resumo: o saldo é o destaque da página */
+.resumo { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--linha); }
+.resumo > div { padding: 20px 0; }
+.resumo > div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
+.resumo small { display: block; color: var(--suave); }
+.resumo strong { font-size: 1.4rem; font-weight: 600; }
+.saldo strong { font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; }
+.pos { color: var(--verde); }
+.neg { color: var(--verm); }
+
+/* formulário */
+.form { display: flex; flex-wrap: wrap; gap: 8px; }
+#descricao { flex: 1 1 200px; }
+#valor { width: 130px; }
+.form button {
+  padding: 9px 18px; font-weight: 600; cursor: pointer;
+  color: var(--sobre); background: var(--verde);
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+#erro { min-height: 1.5em; margin: 8px 0 0; color: var(--verm); }
+
+/* gráficos */
+.graficos { display: grid; grid-template-columns: 1fr; column-gap: 40px; }
+@media (min-width: 800px) { .graficos { grid-template-columns: 5fr 6fr; } }
+.rosca-area { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.rosca { width: 200px; max-width: 100%; height: auto; }
+.rosca circle { fill: none; stroke-width: 26; cursor: pointer; transition: stroke-width .15s, opacity .15s; }
+.rosca circle:hover, .rosca circle:focus-visible, .rosca circle.ativo { stroke-width: 34; }
+.rosca circle.apagado { opacity: .3; }
+.rosca text { fill: var(--tinta); text-anchor: middle; }
+.rosca .centro-rotulo { font-size: 11px; fill: var(--suave); }
+.rosca .centro-valor { font-size: 15px; font-weight: 700; }
+
+.legenda { width: 100%; margin: 0; padding: 0; list-style: none; }
+.legenda button {
+  display: grid; grid-template-columns: 12px 1fr auto auto; gap: 10px; align-items: center;
+  width: 100%; padding: 6px 8px; color: inherit; text-align: left; cursor: pointer;
+  background: none; border: 0; border-radius: 3px;
+}
+.legenda button:hover, .legenda button[aria-pressed="true"] { background: var(--papel); }
+.legenda i { width: 12px; height: 12px; border-radius: 2px; }
+.legenda .pct { min-width: 3.5ch; text-align: right; color: var(--suave); }
+
+.barras { display: block; width: 100%; height: auto; }
+.barras .grade { stroke: var(--linha); stroke-width: 1; }
+.barras text { fill: var(--suave); font-size: 10px; }
+.barras .mes-grupo { cursor: pointer; outline: none; }
+.barras .fundo-mes { fill: transparent; }
+.barras .mes-grupo:hover .fundo-mes, .barras .mes-grupo:focus-visible .fundo-mes { fill: var(--papel); }
+.barras .mes-grupo:focus-visible .fundo-mes { stroke: var(--verde); stroke-width: 2; }
+.barras .atual .fundo-mes { fill: var(--papel); stroke: var(--linha); }
+.barras .atual text { fill: var(--tinta); font-weight: 600; }
+.barras .rec { fill: var(--verde); }
+.barras .desp { fill: var(--verm); }
+
+.chave { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 0; font-size: .9rem; color: var(--suave); }
+.chave i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+.chave i:not(:first-child) { margin-left: 10px; }
+.chave i.rec { background: var(--verde); }
+.chave i.desp { background: var(--verm); }
+
+#limpar-filtro { margin: 0 0 8px; }
+
+/* tabela */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-weight: 600; color: var(--suave); border-bottom: 1px solid var(--tinta); padding: 6px 8px 6px 0; }
+td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--linha); }
+.valor { text-align: right; }
+td.receita { color: var(--verde); }
+td.despesa { color: var(--verm); }
+td button { background: none; border: 0; padding: 4px 8px; color: var(--suave); cursor: pointer; border-radius: 3px; }
+td button:hover { color: var(--verm); background: var(--papel); }
+
+#vazio, .vazio { color: var(--suave); }
+.secundario {
+  margin-top: 24px; padding: 9px 16px; cursor: pointer;
+  color: var(--tinta); background: none;
+  border: 1px solid var(--tinta); border-radius: 3px;
+}
+.rodape { display: flex; flex-wrap: wrap; gap: 8px; }
+.rodape .secundario { margin-top: 0; }
+.rodape { margin-top: 24px; }
+#status { min-height: 1.5em; margin: 8px 0 0; color: var(--suave); }
+.secundario:disabled { opacity: .4; cursor: not-allowed; }
+
+@media (max-width: 600px) {
+  .resumo { grid-template-columns: 1fr; }
+  .resumo > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--linha); }
+  .barra { grid-template-columns: 90px 1fr 90px; }
+  th:nth-child(3), td:nth-child(3) { display: none; }
+}
